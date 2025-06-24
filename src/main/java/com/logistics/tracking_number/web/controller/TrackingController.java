@@ -5,7 +5,6 @@ import com.logistics.tracking_number.service.TrackingNumberService;
 import com.logistics.tracking_number.service.model.NextTrackingNumberRequest;
 import com.logistics.tracking_number.web.response.BaseResponse;
 import com.logistics.tracking_number.web.response.NextTrackingNumberResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +50,7 @@ public class TrackingController {
         .customerSlug(customerSlug)
         .build();
 
-    return trackingNumberService.nextPublicNumber(request)
+    return trackingNumberService.nextTrackingNumber(request)
         .map(ResponseHelper::success);
   }
 }

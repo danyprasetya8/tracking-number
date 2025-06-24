@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 public class TrackingNumberServiceImpl implements TrackingNumberService {
 
   @Override
-  public Mono<NextTrackingNumberResponse> nextPublicNumber(NextTrackingNumberRequest request) {
+  public Mono<NextTrackingNumberResponse> nextTrackingNumber(NextTrackingNumberRequest request) {
     return Mono.error(() -> new BadRequestException("testing bro"));
   }
 }

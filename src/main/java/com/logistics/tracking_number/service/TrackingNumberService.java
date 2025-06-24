@@ -6,5 +6,5 @@ import reactor.core.publisher.Mono;
 
 public interface TrackingNumberService {
 
-  Mono<NextTrackingNumberResponse> nextPublicNumber(NextTrackingNumberRequest request);
+  Mono<NextTrackingNumberResponse> nextTrackingNumber(NextTrackingNumberRequest request);
 }
