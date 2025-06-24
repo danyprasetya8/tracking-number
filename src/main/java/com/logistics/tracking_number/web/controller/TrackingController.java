@@ -4,6 +4,7 @@ import com.logistics.tracking_number.helper.ResponseHelper;
 import com.logistics.tracking_number.service.TrackingNumberService;
 import com.logistics.tracking_number.service.model.NextTrackingNumberRequest;
 import com.logistics.tracking_number.web.response.BaseResponse;
+import com.logistics.tracking_number.web.response.GetTrackingNumberResponse;
 import com.logistics.tracking_number.web.response.NextTrackingNumberResponse;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1")
@@ -24,11 +26,10 @@ public class TrackingController {
     this.trackingNumberService = trackingNumberService;
   }
 
-  @GetMapping("/hello")
-  public Mono<BaseResponse<Boolean>> hello() {
-    return Mono.just(BaseResponse.<Boolean>builder()
-        .data(true)
-        .build());
+  @GetMapping("/tracking-number")
+  public Mono<BaseResponse<List<GetTrackingNumberResponse>>> getAllTrackingNumbers() {
+    return trackingNumberService.getAllTrackingNumbers()
+        .map(ResponseHelper::success);
   }
 
   @GetMapping("/next-tracking-number")

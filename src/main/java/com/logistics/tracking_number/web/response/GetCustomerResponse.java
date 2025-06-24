@@ -1,6 +1,5 @@
 package com.logistics.tracking_number.web.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,11 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class NextTrackingNumberResponse {
+public class GetCustomerResponse {
 
-  @JsonProperty("tracking_number")
-  private String trackingNumber;
+  private String id;
 
-  @JsonProperty("created_at")
-  private String createdAt;
+  private String name;
+
+  private String code;
+
+  private String slug;
 }

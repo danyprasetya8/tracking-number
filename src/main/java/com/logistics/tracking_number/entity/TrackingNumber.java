@@ -1,14 +1,23 @@
 package com.logistics.tracking_number.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
 
-@Document
-public class TrackingNumber {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Document(collection = "trackingNumbers")
+public class TrackingNumber implements Persistable<String> {
 
   @Id
   private String id;
@@ -30,4 +39,9 @@ public class TrackingNumber {
 
   @LastModifiedDate
   private Instant updatedAt;
+
+  @Override
+  public boolean isNew() {
+    return createdAt == null;
+  }
 }
