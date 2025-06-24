@@ -4,7 +4,7 @@
 
 - Make sure mongodb and redis are running or available (if using cloud)
 - Execute command below, adjust mongo uri and redis host/port accordingly
-- To simulate running multiple instance, add properties `--server.port=8081`
+- To simulate running multiple instance, run in multiple terminals and add properties `--server.port=8081`
 
 ``mvn spring-boot:run -Dspring-boot.run.arguments="--spring.data.mongodb.uri=mongodb://<username>:<password>@localhost:27017/logistic --spring.data.redis.host=localhost --spring.data.redis.port=6379 --server.port=8081"``
 
