@@ -18,7 +18,8 @@
   - `REDIS_PORT=6379`
 
 ## Documentation
-http://localhost:8080/swagger-ui/index.html
+Local: http://localhost:8080/swagger-ui/index.html
+Production: https://tracking-number-production-fb94.up.railway.app/swagger-ui/index.html
 
 ## How to test
 - Create customers using `POST /api/v1/customer`
