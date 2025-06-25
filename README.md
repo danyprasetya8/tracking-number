@@ -6,19 +6,20 @@
 - Execute command below, adjust mongo uri and redis host/port accordingly
 - To simulate running multiple instance, run in multiple terminals and add properties `--server.port=8081`
 
-``mvn spring-boot:run -Dspring-boot.run.arguments="--spring.data.mongodb.uri=mongodb://<username>:<password>@localhost:27017/logistic --spring.data.redis.host=localhost --spring.data.redis.port=6379 --server.port=8081"``
+``mvn spring-boot:run -Dspring-boot.run.arguments="--spring.data.mongodb.uri=mongodb://localhost:27017/logistic --spring.data.redis.host=localhost --spring.data.redis.port=6379 --server.port=8081"``
 
 ### Using Intellij
 
 - Open TrackingNumberApplication class
 - Click play button
 - Adjust environment variable in Run/Debug Configuration
-  - `MONGO_URI=mongodb://<username>:<password>@localhost:27017/logistic`
+  - `MONGO_URI=mongodb://localhost:27017/logistic`
   - `REDIS_HOST=localhost`
   - `REDIS_PORT=6379`
 
 ## Documentation
 Local: http://localhost:8080/swagger-ui/index.html
+
 Production: https://tracking-number-production-fb94.up.railway.app/swagger-ui/index.html
 
 ## How to test
@@ -39,11 +40,17 @@ Production: https://tracking-number-production-fb94.up.railway.app/swagger-ui/in
     - customer_slug -> redbox-logistics
 - Check created tracking number with API `GET /api/v1/tracking-number`
 
+## Concurrency test
+- Run multiple app
+  - mvn spring-boot:run -Dspring-boot.run.arguments="--spring.data.mongodb.uri=mongodb://localhost:27017/logistic --spring.data.redis.host=localhost --spring.data.redis.port=6379 --server.port=8080"
+  - mvn spring-boot:run -Dspring-boot.run.arguments="--spring.data.mongodb.uri=mongodb://localhost:27017/logistic --spring.data.redis.host=localhost --spring.data.redis.port=6379 --server.port=8081"
+  - mvn spring-boot:run -Dspring-boot.run.arguments="--spring.data.mongodb.uri=mongodb://localhost:27017/logistic --spring.data.redis.host=localhost --spring.data.redis.port=6379 --server.port=8082"
+- Run simple async fetch script on src/main/resources/script.js
+
 ## Strategy
 - Leverage Redis INCR feature to make tracking number generation fast, can handle concurrent request, and horizontally scalable
 - Tracking number format
   - `TX {customerCode} {ddMMyy} {0-padded sequence}`
 - Redis key would be `TX {customerCode} {ddMMyy}`
-- Every request will increment the Redis Value for given key
 - Redis is making sure the process is atomic so it won't be any problem when the app scale to multiple instances
 - For extra security layer, tracking numbers are made as ID which by default has unique index making it impossible to have duplicate entry
